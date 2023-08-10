@@ -35,6 +35,9 @@ function App() {
             console.log('b')
             return
         }
+        if(currentValue.length>=3){
+            return
+        }
 
         const newInput = currentValue + number
         setCurrentValue(newInput)
