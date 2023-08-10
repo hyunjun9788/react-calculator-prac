@@ -1,25 +1,129 @@
-import logo from './logo.svg';
 import './App.css';
+import styled from 'styled-components'
+import React, {useState} from "react";
+
+
+const FirstRow = styled.div`
+  display: flex;
+
+
+`
+const SecondRow = styled.div`
+  display: flex;
+`
+const ThirdRow = styled.div`
+  display: flex;
+`
+const FourRow = styled.div`
+display:flex;
+`
+const Button = styled.button`
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+`
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [currentValue, setCurrentValue] = useState('')
+    const [storedNumber, setStoredNumber] = useState(null)
+    const [operator, setOperator] = useState('')
+    const inputChangeHandler = (number) => {
+        console.log('a')
+        if (number === '.' && currentValue.includes('.')) {
+            console.log('b')
+            return
+        }
+
+        const newInput = currentValue + number
+        setCurrentValue(newInput)
+        console.log(newInput)
+
+
+    }
+    const inputOperatorHandler = (operatorBtn) => {
+        if (currentValue !== '') {
+            setStoredNumber(currentValue)
+            setCurrentValue('')
+            setOperator(operatorBtn)
+
+        }
+    }
+    const inputResetHandler = () => {
+
+        setCurrentValue(0)
+    }
+
+    const inputCancelHandler = (number) => {
+        const newInput = currentValue.slice(0, -1)
+        setCurrentValue(newInput)
+    }
+    const calculateHandler = () => {
+        if (storedNumber !== null && operator !== '' && currentValue !== '') {
+            const num1 = parseFloat(storedNumber)
+            const num2 = parseFloat(currentValue)
+
+            let result = 0
+            if (operator === '+') {
+                result = num1 + num2
+
+
+            } else if (operator === '-') {
+                result = num1 - num2
+
+            } else if (operator === '*') {
+                result = num1 * num2
+
+            } else if (operator === '/') {
+                result = num1 / num2
+
+            }
+
+            setCurrentValue(Math.floor(result).toString())
+            setStoredNumber(null)
+            setOperator(null)
+        }
+    }
+
+
+    return (
+        <div>
+            <div>
+                <input type='text' value={currentValue}/>
+                <FirstRow className='fitst-row'>
+                    <Button value={1} onClick={() => inputChangeHandler(1)}>1</Button>
+                    <Button value={2} onClick={() => inputChangeHandler(2)}>2</Button>
+                    <Button value={3} onClick={() => inputChangeHandler(3)}>3</Button>
+                    <Button value={''} onClick={inputResetHandler}>AC</Button>
+                    <Button onClick={inputCancelHandler}>←</Button>
+                    <Button onClick={calculateHandler}>=</Button>
+                </FirstRow>
+                <SecondRow className='second-row'>
+                    <Button value={4} onClick={() => inputChangeHandler(4)}>4</Button>
+                    <Button value={5} onClick={() => inputChangeHandler(5)}>5</Button>
+                    <Button value={6} onClick={() => inputChangeHandler(6)}>6</Button>
+                    <Button onClick={() => inputOperatorHandler('+')}>+</Button>
+                    <Button onClick={() => inputOperatorHandler('-')}>-</Button>
+                </SecondRow>
+
+                <ThirdRow className='third-row'>
+                    <Button value={7} onClick={() => inputChangeHandler(7)}>7</Button>
+                    <Button value={8} onClick={() => inputChangeHandler(8)}>8</Button>
+                    <Button value={9} onClick={() => inputChangeHandler(9)}>9</Button>
+                    <Button onClick={() => inputOperatorHandler('*')}>*</Button>
+                    <Button onClick={() => inputOperatorHandler('/')}>/</Button>
+                </ThirdRow>
+
+                <FourRow>
+                    <Button value={0} onClick={() => inputChangeHandler(0)}>0</Button>
+                    <Button onClick={() => inputChangeHandler('.')}>.</Button>
+                </FourRow>
+
+            </div>
+        </div>
+    )
+        ;
 }
 
 export default App;
