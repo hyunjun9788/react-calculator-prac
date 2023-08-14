@@ -28,21 +28,25 @@ function App() {
     const [currentValue, setCurrentValue] = useState('')
     const [storedNumber, setStoredNumber] = useState(null)
     const [operator, setOperator] = useState('')
+
     const inputChangeHandler = (number) => {
-        console.log('a')
-        if (number === '.' && currentValue.includes('.')) {
-            console.log('b')
-            return
+        const newInput = currentValue.toString() + number
+        setCurrentValue(newInput)
+
+
+        if (currentValue === '0') {
+            console.log('a')
+            setCurrentValue(number)
         }
-        if (currentValue.length >= 3) {
+
+        if (number === '.' && currentValue.includes('.')) {
             return
         }
 
-        const newInput =currentValue.toString() + number
-        setCurrentValue(newInput)
-        console.log(newInput)
-        console.log(currentValue)
-        console.log(number)
+
+        if (currentValue.length >= 3) {
+            return
+        }
 
 
     }
@@ -56,7 +60,9 @@ function App() {
     }
     const inputResetHandler = () => {
 
-        setCurrentValue(0)
+        setCurrentValue('0')
+
+
     }
 
     const inputCancelHandler = (number) => {
