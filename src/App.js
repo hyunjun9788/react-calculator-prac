@@ -15,14 +15,13 @@ const ThirdRow = styled.div`
   display: flex;
 `
 const FourRow = styled.div`
-display:flex;
+  display: flex;
 `
 const Button = styled.button`
   width: 40px;
   height: 40px;
   font-size: 20px;
 `
-
 
 
 function App() {
@@ -35,13 +34,15 @@ function App() {
             console.log('b')
             return
         }
-        if(currentValue.length>=3){
+        if (currentValue.length >= 3) {
             return
         }
 
-        const newInput = currentValue + number
+        const newInput =currentValue.toString() + number
         setCurrentValue(newInput)
         console.log(newInput)
+        console.log(currentValue)
+        console.log(number)
 
 
     }
