@@ -1,6 +1,7 @@
 import './App.css';
 import styled from 'styled-components';
 import React, { useState } from 'react';
+import CalculatorBtn from './components/CalculatorBtn';
 
 const FirstRow = styled.div`
   display: flex;
@@ -73,62 +74,13 @@ function App() {
       setOperator(null);
     }
   };
+  const numberBtns = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+  const operatorBtns = ['+', '-', '*', '/'];
   //
   return (
     <div>
-      <div>
-        <input type="text" value={currentValue} />
-        <FirstRow className="fitst-row">
-          <Button value={1} onClick={() => onClickNumber(1)}>
-            1
-          </Button>
-          <Button value={2} onClick={() => onClickNumber(2)}>
-            2
-          </Button>
-          <Button value={3} onClick={() => onClickNumber(3)}>
-            3
-          </Button>
-          <Button value={''} onClick={onClickReset}>
-            AC
-          </Button>
-          <Button onClick={onClickBackspace}>←</Button>
-          <Button onClick={onClickResult}>=</Button>
-        </FirstRow>
-        <SecondRow className="second-row">
-          <Button value={4} onClick={() => onClickNumber(4)}>
-            4
-          </Button>
-          <Button value={5} onClick={() => onClickNumber(5)}>
-            5
-          </Button>
-          <Button value={6} onClick={() => onClickNumber(6)}>
-            6
-          </Button>
-          <Button onClick={() => onClickOperator('+')}>+</Button>
-          <Button onClick={() => onClickOperator('-')}>-</Button>
-        </SecondRow>
-
-        <ThirdRow className="third-row">
-          <Button value={7} onClick={() => onClickNumber(7)}>
-            7
-          </Button>
-          <Button value={8} onClick={() => onClickNumber(8)}>
-            8
-          </Button>
-          <Button value={9} onClick={() => onClickNumber(9)}>
-            9
-          </Button>
-          <Button onClick={() => onClickOperator('*')}>*</Button>
-          <Button onClick={() => onClickOperator('/')}>/</Button>
-        </ThirdRow>
-
-        <FourRow>
-          <Button value={0} onClick={() => onClickNumber(0)}>
-            0
-          </Button>
-          <Button onClick={() => onClickNumber('.')}>.</Button>
-        </FourRow>
-      </div>
+      <input type="text" value={currentValue} />
+      <CalculatorBtn buttons={numberBtns} onClick={onClickNumber} />
     </div>
   );
 }
