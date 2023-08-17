@@ -30,12 +30,7 @@ function App() {
     setCurrentValue(newInput);
 
     if (currentValue === '0') {
-      console.log('a');
       setCurrentValue(number);
-    }
-
-    if (number === '.' && currentValue.includes('.')) {
-      return;
     }
 
     if (currentValue.length >= 3) {
