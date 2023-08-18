@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useState } from 'react';
 import CalculatorBtn from './components/CalculatorBtn';
-
+import InputBtn from './components/InputBtn';
 function App() {
   const [currentValue, setCurrentValue] = useState('');
   const [storedNumber, setStoredNumber] = useState(null);
@@ -70,10 +70,11 @@ function App() {
   //
   return (
     <div className="container">
-      <div className="input-btn">
-        <input type="text" value={currentValue} />
-        <input type="button" onClick={onClickBackspace} value="backspace" />
-      </div>
+      <InputBtn
+        value={currentValue}
+        onClick={onClickBackspace}
+        className="input-btn"
+      />
       <CalculatorBtn
         className="number-btn"
         buttons={numberBtns}
