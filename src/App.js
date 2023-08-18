@@ -1,25 +1,6 @@
 import './App.css';
-import styled from 'styled-components';
 import React, { useState } from 'react';
 import CalculatorBtn from './components/CalculatorBtn';
-
-const FirstRow = styled.div`
-  display: flex;
-`;
-const SecondRow = styled.div`
-  display: flex;
-`;
-const ThirdRow = styled.div`
-  display: flex;
-`;
-const FourRow = styled.div`
-  display: flex;
-`;
-const Button = styled.button`
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
-`;
 
 function App() {
   const [currentValue, setCurrentValue] = useState('');
@@ -76,11 +57,18 @@ function App() {
   };
   const numberBtns = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
   const operatorBtns = ['+', '-', '*', '/'];
+  const backspace = ['<-'];
+  const reset = ['AC'];
+  const result = ['='];
   //
   return (
     <div>
       <input type="text" value={currentValue} />
       <CalculatorBtn buttons={numberBtns} onClick={onClickNumber} />
+      <CalculatorBtn buttons={operatorBtns} onClick={onClickOperator} />
+      <CalculatorBtn buttons={backspace} onClick={onClickBackspace} />
+      <CalculatorBtn buttons={reset} onClick={onClickReset} />
+      <CalculatorBtn buttons={result} onClick={onClickResult} />
     </div>
   );
 }
