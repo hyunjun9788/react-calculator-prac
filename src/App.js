@@ -8,15 +8,9 @@ function App() {
   const [operator, setOperator] = useState('');
 
   const onClickNumber = (number) => {
-    const newInput = currentValue.toString() + number;
-    setCurrentValue(newInput);
-
-    if (currentValue === '0') {
-      setCurrentValue(number);
-    }
-
-    if (currentValue.length >= 3) {
-      return;
+    if (currentValue.length < 3) {
+      const newInput = currentValue === '0' ? number : currentValue + number;
+      setCurrentValue(newInput);
     }
   };
   const onClickOperator = (operatorBtn) => {
