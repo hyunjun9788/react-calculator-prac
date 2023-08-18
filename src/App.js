@@ -55,18 +55,37 @@ function App() {
       setOperator(null);
     }
   };
-  const numberBtns = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+
+  const numberBtns = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '0',
+    '.',
+    '',
+  ];
   const operatorBtns = ['+', '-', '*', '/'];
-  const backspace = ['<-'];
   const reset = ['AC'];
   const result = ['='];
   //
   return (
-    <div>
-      <input type="text" value={currentValue} />
-      <CalculatorBtn buttons={numberBtns} onClick={onClickNumber} />
+    <div className="container">
+      <div className="input-btn">
+        <input type="text" value={currentValue} />
+        <input type="button" onClick={onClickBackspace} value="backspace" />
+      </div>
+      <CalculatorBtn
+        className="number-btn"
+        buttons={numberBtns}
+        onClick={onClickNumber}
+      />
       <CalculatorBtn buttons={operatorBtns} onClick={onClickOperator} />
-      <CalculatorBtn buttons={backspace} onClick={onClickBackspace} />
       <CalculatorBtn buttons={reset} onClick={onClickReset} />
       <CalculatorBtn buttons={result} onClick={onClickResult} />
     </div>
