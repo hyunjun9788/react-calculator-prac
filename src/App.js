@@ -3,17 +3,29 @@ import React, { useState } from 'react';
 import CalculatorBtn from './components/CalculatorBtn';
 import InputBtn from './components/InputBtn';
 function App() {
-  const [currentValue, setCurrentValue] = useState('');
-  const [storedNumber, setStoredNumber] = useState(null);
-  const [operator, setOperator] = useState('');
+  const [
+    currentValue,
+    setCurrentValue,
+  ] = useState('');
+  const [
+    storedNumber,
+    setStoredNumber,
+  ] = useState(null);
+  const [operator, setOperator] =
+    useState('');
 
   const onClickNumber = (number) => {
     if (currentValue.length < 3) {
-      const newInput = currentValue === '0' ? number : currentValue + number;
+      const newInput =
+        currentValue === '0'
+          ? number
+          : currentValue + number;
       setCurrentValue(newInput);
     }
   };
-  const onClickOperator = (operatorBtn) => {
+  const onClickOperator = (
+    operatorBtn
+  ) => {
     if (currentValue !== '') {
       setStoredNumber(currentValue);
       setCurrentValue('');
@@ -25,13 +37,24 @@ function App() {
   };
 
   const onClickBackspace = (number) => {
-    const newInput = currentValue.slice(0, -1);
+    const newInput = currentValue.slice(
+      0,
+      -1
+    );
     setCurrentValue(newInput);
   };
   const onClickResult = () => {
-    if (storedNumber !== null && operator !== '' && currentValue !== '') {
-      const num1 = parseFloat(storedNumber);
-      const num2 = parseFloat(currentValue);
+    if (
+      storedNumber !== null &&
+      operator !== '' &&
+      currentValue !== ''
+    ) {
+      const num1 = parseFloat(
+        storedNumber
+      );
+      const num2 = parseFloat(
+        currentValue
+      );
 
       let result = 0;
       if (operator === '+') {
@@ -44,7 +67,9 @@ function App() {
         result = num1 / num2;
       }
 
-      setCurrentValue(Math.floor(result).toString());
+      setCurrentValue(
+        Math.floor(result).toString()
+      );
       setStoredNumber(null);
       setOperator(null);
     }
@@ -64,7 +89,12 @@ function App() {
     '.',
     '',
   ];
-  const operatorBtns = ['+', '-', '*', '/'];
+  const operatorBtns = [
+    '+',
+    '-',
+    '*',
+    '/',
+  ];
   const reset = ['AC'];
   const result = ['='];
   //
@@ -80,11 +110,21 @@ function App() {
         buttons={numberBtns}
         onClick={onClickNumber}
       />
-      <CalculatorBtn buttons={operatorBtns} onClick={onClickOperator} />
-      <CalculatorBtn buttons={reset} onClick={onClickReset} />
-      <CalculatorBtn buttons={result} onClick={onClickResult} />
+      <CalculatorBtn
+        buttons={operatorBtns}
+        onClick={onClickOperator}
+      />
+      <CalculatorBtn
+        buttons={reset}
+        onClick={onClickReset}
+      />
+      <CalculatorBtn
+        buttons={result}
+        onClick={onClickResult}
+      />
     </div>
   );
 }
+
 //
 export default App;
