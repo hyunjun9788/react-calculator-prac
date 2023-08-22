@@ -1,12 +1,6 @@
-input {
-  margin-bottom: 5px;
-}
-
-.container {
+.header {
   display: flex;
-  flex-direction: column;
-  width: 200px;
 }
-.input-btn {
-  display: flex;
+.header .backspace {
+  width: 120px;
 }

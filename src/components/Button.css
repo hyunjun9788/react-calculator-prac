@@ -12,3 +12,7 @@
 .calculator-button:hover {
   background-color: #ddd;
 }
+
+.result-btn {
+  width: 100%;
+}
