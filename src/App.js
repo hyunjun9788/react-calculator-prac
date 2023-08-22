@@ -1,134 +1,195 @@
 import './App.css';
-import styled from 'styled-components';
 import React, { useState } from 'react';
-
-const FirstRow = styled.div`
-  display: flex;
-`;
-const SecondRow = styled.div`
-  display: flex;
-`;
-const ThirdRow = styled.div`
-  display: flex;
-`;
-const FourRow = styled.div`
-  display: flex;
-`;
-const Button = styled.button`
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
-`;
+import Button from './components/Button';
+import './components/Button.css';
 
 function App() {
   const [currentValue, setCurrentValue] = useState('');
-  const [storedNumber, setStoredNumber] = useState(null);
+  const [firstInputValue, setfirstInputValue] =
+    useState(null);
   const [operator, setOperator] = useState('');
 
-  const onClickNumber = (number) => {
-    const newInput = currentValue.toString() + number;
-    setCurrentValue(newInput);
-    if (currentValue === '0') {
-      setCurrentValue(number);
-    }
-    if (currentValue.length >= 3) {
-      return;
+  const limitedInputLength = 3;
+  const onClickNumber = (num) => {
+    if (currentValue.length < limitedInputLength) {
+      const newInput =
+        currentValue === '0'
+          ? `${num}`
+          : `${currentValue}${num}`;
+      setCurrentValue(newInput);
     }
   };
 
-  const onClickOperator = (operatorBtn) => {
+  const onClickDot = () => {
+    if (currentValue.length < limitedInputLength) {
+      const newInput =
+        currentValue === '0' ? '.' : currentValue + '.';
+      setCurrentValue(newInput);
+    }
+  };
+
+  const onClickOperator = (operatorValue) => {
     if (currentValue !== '') {
-      setStoredNumber(currentValue);
+      setfirstInputValue(currentValue);
       setCurrentValue('');
-      setOperator(operatorBtn);
+      setOperator(operatorValue);
     }
   };
-
   const onClickReset = () => {
     setCurrentValue('0');
   };
 
-  const onClickBackSpace = (number) => {
+  const onClickBackspace = () => {
     const newInput = currentValue.slice(0, -1);
     setCurrentValue(newInput);
   };
   const onClickResult = () => {
-    if (storedNumber !== null && operator !== '' && currentValue !== '') {
-      const num1 = parseFloat(storedNumber);
+    if (
+      firstInputValue !== null &&
+      operator !== '' &&
+      currentValue !== ''
+    ) {
+      const num1 = parseFloat(firstInputValue);
       const num2 = parseFloat(currentValue);
 
-      let result = 0;
-      if (operator === '+') {
-        result = num1 + num2;
-      } else if (operator === '-') {
-        result = num1 - num2;
-      } else if (operator === '*') {
-        result = num1 * num2;
-      } else if (operator === '/') {
-        result = num1 / num2;
-      }
+      const operators = {
+        '+': num1 + num2,
+        '-': num1 - num2,
+        '*': num1 * num2,
+        '/': num1 / num2,
+      };
+      const result = Math.floor(
+        operators[operator]
+      ).toString();
 
-      setCurrentValue(Math.floor(result).toString());
-      setStoredNumber(null);
+      setCurrentValue(result);
+      setfirstInputValue(null);
       setOperator(null);
     }
   };
 
+  //
   return (
-    <div>
-      <div>
-        <input type="text" value={currentValue} />
-        <FirstRow className="fitst-row">
-          <Button value={1} onClick={() => onClickNumber(1)}>
-            1
-          </Button>
-          <Button value={2} onClick={() => onClickNumber(2)}>
-            2
-          </Button>
-          <Button value={3} onClick={() => onClickNumber(3)}>
-            3
-          </Button>
-          <Button value={''} onClick={onClickReset}>
-            AC
-          </Button>
-          <Button onClick={onClickBackSpace}>←</Button>
-          <Button onClick={onClickResult}>=</Button>
-        </FirstRow>
-        <SecondRow className="second-row">
-          <Button value={4} onClick={() => onClickNumber(4)}>
-            4
-          </Button>
-          <Button value={5} onClick={() => onClickNumber(5)}>
-            5
-          </Button>
-          <Button value={6} onClick={() => onClickNumber(6)}>
-            6
-          </Button>
-          <Button onClick={() => onClickOperator('+')}>+</Button>
-          <Button onClick={() => onClickOperator('-')}>-</Button>
-        </SecondRow>
+    <div className="container">
+      {/* input + backspace */}
+      <div className="header">
+        <input
+          type="text"
+          placeholder="숫자를 입력해주세요"
+          readOnly
+          value={currentValue}
+        />
 
-        <ThirdRow className="third-row">
-          <Button value={7} onClick={() => onClickNumber(7)}>
-            7
-          </Button>
-          <Button value={8} onClick={() => onClickNumber(8)}>
-            8
-          </Button>
-          <Button value={9} onClick={() => onClickNumber(9)}>
-            9
-          </Button>
-          <Button onClick={() => onClickOperator('*')}>*</Button>
-          <Button onClick={() => onClickOperator('/')}>/</Button>
-        </ThirdRow>
-
-        <FourRow>
-          <Button value={0} onClick={() => onClickNumber(0)}>
-            0
-          </Button>
-          <Button onClick={() => onClickNumber('.')}>.</Button>
-        </FourRow>
+        <Button
+          className="backspace"
+          onClick={onClickBackspace}
+        >
+          backspace
+        </Button>
       </div>
+
+      {/* table */}
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <Button onClick={() => onClickNumber(1)}>
+                1
+              </Button>
+            </td>
+            <td>
+              <Button onClick={() => onClickNumber(2)}>
+                2
+              </Button>
+            </td>
+            <td>
+              <Button onClick={() => onClickNumber(3)}>
+                3
+              </Button>
+            </td>
+            <td>
+              <Button onClick={onClickReset}>AC</Button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <Button onClick={() => onClickNumber(4)}>
+                4
+              </Button>
+            </td>
+            <td>
+              <Button onClick={() => onClickNumber(5)}>
+                5
+              </Button>
+            </td>
+            <td>
+              <Button onClick={() => onClickNumber(6)}>
+                6
+              </Button>
+            </td>
+            <td>
+              <Button onClick={() => onClickOperator('+')}>
+                +
+              </Button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <Button onClick={() => onClickNumber(7)}>
+                7
+              </Button>
+            </td>
+            <td>
+              <Button onClick={() => onClickNumber(8)}>
+                8
+              </Button>
+            </td>
+            <td>
+              <Button onClick={() => onClickNumber(9)}>
+                9
+              </Button>
+            </td>
+            <td>
+              <Button onClick={() => onClickOperator('-')}>
+                -
+              </Button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <Button onClick={onClickDot}>.</Button>
+            </td>
+            <td>
+              <Button onClick={() => onClickNumber(0)}>
+                0
+              </Button>
+            </td>
+            <td>
+              <Button onClick={() => onClickOperator('/')}>
+                /
+              </Button>
+            </td>
+            <td>
+              <Button onClick={() => onClickOperator('*')}>
+                *
+              </Button>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan="4">
+              <Button
+                className="result-btn"
+                onClick={onClickResult}
+              >
+                =
+              </Button>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }

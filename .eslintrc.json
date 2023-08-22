@@ -3,7 +3,10 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["react-app", "prettier"],
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
+  ],
 
   "parserOptions": {
     "ecmaFeatures": {
@@ -12,13 +15,15 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["prettier"],
+  "plugins": ["import", "react"],
   "rules": {
     "prettier/prettier": [
       "error",
       {
+        "useTabs": false,
         "endOfLine": "auto"
       }
-    ]
+    ],
+    "react/prop-types": "off"
   }
 }
